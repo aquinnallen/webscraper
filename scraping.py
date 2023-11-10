@@ -1,6 +1,7 @@
 #from urllib.request import urlopen   <--- This isn't powerful enough to run the javascript in the page
 #from phantomjs import Phantom    <---Selenium tutortials were better
 
+import sys
 from selenium import webdriver   #import webdriver from selenium
 from selenium.webdriver.firefox.options import Options #import options for webdriver in firefox
 from selenium.webdriver.support.ui import WebDriverWait
@@ -8,7 +9,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 #target URL
-url = "https://www.redfin.com/city/13223/WA/Olympia/apartments-for-rent"
+print("scraping " + sys.argv[1])
+url = sys.argv[1]
 
 #set up headless selenium with firefox webdriver
 options = Options()
