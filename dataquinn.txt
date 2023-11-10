@@ -1,0 +1,1 @@
+student_name:Quinn Allen;team_company:TC3;customer_visit_number:4;all_motorola:True;indicator_4:hot dog;
