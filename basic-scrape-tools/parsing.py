@@ -24,7 +24,7 @@ def parse(text, flag, endFlag):
 		#print(parsing)
 		if scraped[idx:idx+flagLen] == flag and parsing:
 			idx1 = idx
-			for letter1 in scraped[idx+flagLen:idx+flagLen+120]:
+			for letter1 in scraped[idx+flagLen:idx+flagLen+600]:
 				if scraped[idx1:idx1+endFlagLen] != endFlag:
 					retString += letter1
 					idx1= idx1+ 1

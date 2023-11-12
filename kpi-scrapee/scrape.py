@@ -21,7 +21,7 @@ def scrape(url):
 	#browser.find_element(By.CSS_SELECTOR, "button[data-rf-test-name*='tableOption']").click()
 
 	html_string = browser.execute_script("return document.getElementsByTagName('html')[0].innerHTML")
-	print(html_string)
+	#print(html_string)
 	return (html_string)
 
 

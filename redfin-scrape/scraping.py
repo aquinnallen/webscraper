@@ -2,30 +2,45 @@
 #from phantomjs import Phantom    <---Selenium tutortials were better
 
 import sys
+import time
 from selenium import webdriver   #import webdriver from selenium
 from selenium.webdriver.firefox.options import Options #import options for webdriver in firefox
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import ElementClickInterceptedException
 #target URL
 #print("scraping " + sys.argv[1])
 url = sys.argv[1]
 
 def scrape(url):
 
-	#set up headless selenium with firefox webdriver
+	#set up selenium with firefox webdriver
 	options = Options()
-	options.add_argument("-headless")
+	#options.add_argument("-headless")
 	options.add_argument("--window-size=1920,1200")
 	browser = webdriver.Firefox(options=options)
-	browser.implicitly_wait(5)
-
+	#browser.implicitly_wait(1)
 	browser.get(url)
-
-	#browser.find_element(By.CSS_SELECTOR, "button[data-rf-test-name*='tableOption']").click()
-
-	html_string = browser.execute_script("return document.getElementsByTagName('html')[0].innerHTML")
+	#browser.find_element(By.CSS_SELECTOR, "span[data-rf-test-name*='tableOption']").click()
+	def clicks():
+		try:
+			browser.find_element(By.XPATH, "/html/body/div/div[1]/div/div[1]/div[2]/svg").click()
+			browser.find_element(By.XPATH, "/html/body/div[1]/div[8]/div[2]/div[2]/div[2]/div/div/div[2]/div[2]/button[2]/span").click()
+		
+		except (NoSuchElementException,  ElementClickInterceptedException):
+			try:
+				browser.find_element(By.XPATH, "/html/body/div[1]/div[8]/div[2]/div[2]/div[2]/div/div/div[2]/div[2]/button[2]/span").click()
+			except (NoSuchElementException,  ElementClickInterceptedException):
+				print("oh in here!!")
+				clicks()
+	clicks()
+	#html_string = browser.execute_script("return document.getElementsByTagName('html')[0].innerHTML")
+	html_string = browser.find_element(By.XPATH, "/html/body/div[1]/div[8]/div[2]/div[2]/div[4]/div/div[3]/table").get_attribute('innerHTML')
+	#searchFor = "col_address"
+	#until =  "col_days"
+	
 	print(html_string)
 	return (html_string)
 
